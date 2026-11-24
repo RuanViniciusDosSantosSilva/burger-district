@@ -1,0 +1,152 @@
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+/* ============================================================
+   BURGER DISTRICT — design system
+   Preto profundo · laranja queimado · creme
+   Display: Anton (condensada, robusta) · Texto: Archivo · Assinatura: Permanent Marker
+   ============================================================ */
+
+@layer base {
+  :root {
+    --ink: #0b0907;
+    --ember: #e2561b;
+    --cream: #f3e9d8;
+    --header-h: 72px;
+    color-scheme: dark;
+  }
+  html {
+    scroll-behavior: smooth;
+    scroll-padding-top: var(--header-h);
+    scroll-padding-bottom: 96px;
+    -webkit-text-size-adjust: 100%;
+  }
+  body {
+    @apply bg-ink font-sans text-cream antialiased;
+    overflow-x: clip;
+    text-rendering: optimizeLegibility;
+  }
+  ::selection {
+    background: var(--ember);
+    color: var(--ink);
+  }
+  :focus-visible {
+    outline: 2px solid var(--ember);
+    outline-offset: 3px;
+    border-radius: 6px;
+  }
+  img {
+    user-select: none;
+    -webkit-user-drag: none;
+  }
+  input,
+  textarea,
+  select {
+    font-size: 16px;
+  }
+}
+
+@layer components {
+  .wrap {
+    @apply mx-auto w-full max-w-[1320px] px-5 sm:px-8 lg:px-12;
+  }
+  .display {
+    @apply font-display uppercase leading-[1] tracking-[-0.01em];
+  }
+  .eyebrow {
+    @apply inline-flex items-center gap-2 font-sans text-sm font-semibold text-ember;
+  }
+  .eyebrow::before {
+    content: '';
+    @apply h-px w-8 bg-current;
+  }
+  .btn {
+    @apply relative inline-flex min-h-[48px] select-none items-center justify-center gap-2 overflow-hidden rounded-full px-6 font-sans text-[15px] font-bold uppercase tracking-wide transition-[transform,background-color,color,box-shadow] duration-300 ease-out active:scale-[0.97] disabled:pointer-events-none disabled:opacity-50;
+  }
+  .btn-primary {
+    @apply btn bg-ember text-ink shadow-ember hover:bg-ember-400;
+  }
+  .btn-ghost {
+    @apply btn border border-cream/25 text-cream hover:border-cream hover:bg-cream hover:text-ink;
+  }
+  .btn-dark {
+    @apply btn bg-ink text-cream hover:bg-ink-700;
+  }
+  /* brilho que atravessa o botão no hover */
+  .btn-shine::after {
+    content: '';
+    position: absolute;
+    inset: 0;
+    background: linear-gradient(110deg, transparent 30%, rgba(255, 255, 255, 0.45) 50%, transparent 70%);
+    transform: translateX(-120%);
+    transition: transform 0.7s ease;
+  }
+  .btn-shine:hover::after {
+    transform: translateX(120%);
+  }
+  .chip {
+    @apply inline-flex min-h-[40px] items-center gap-2 rounded-full border border-cream/15 px-4 text-sm font-semibold transition-colors;
+  }
+  .field {
+    @apply w-full rounded-xl border border-cream/15 bg-ink-800 px-4 py-3 text-cream placeholder:text-cream/35 transition-colors focus:border-ember focus:outline-none;
+  }
+  .label {
+    @apply mb-1.5 block text-sm font-semibold text-cream/80;
+  }
+  .text-outline {
+    color: transparent;
+    -webkit-text-stroke: 1.5px currentColor;
+  }
+  .grain::before {
+    content: '';
+    position: absolute;
+    inset: 0;
+    pointer-events: none;
+    opacity: 0.07;
+    mix-blend-mode: overlay;
+    background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='220' height='220'%3E%3Cfilter id='n'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='.85' numOctaves='3' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23n)'/%3E%3C/svg%3E");
+    z-index: 1;
+  }
+}
+
+@keyframes fadeUp {
+  from { opacity: 0; transform: translateY(18px); }
+  to { opacity: 1; transform: none; }
+}
+
+@layer utilities {
+  .no-scrollbar::-webkit-scrollbar {
+    display: none;
+  }
+  .no-scrollbar {
+    scrollbar-width: none;
+  }
+  .text-balance {
+    text-wrap: balance;
+  }
+  .safe-bottom {
+    padding-bottom: max(16px, env(safe-area-inset-bottom));
+  }
+}
+
+/* Cursor personalizado apenas para ponteiros precisos */
+@media (pointer: fine) {
+  .has-cursor,
+  .has-cursor * {
+    cursor: none !important;
+  }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  html {
+    scroll-behavior: auto;
+  }
+  *,
+  *::before,
+  *::after {
+    animation-duration: 0.001ms !important;
+    animation-iteration-count: 1 !important;
+    transition-duration: 0.001ms !important;
+  }
+}
